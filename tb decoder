@@ -1,0 +1,34 @@
+`timescale 1ns/1ps
+
+
+module tbdec;
+    reg        en;
+    reg  [1:0] a;
+    wire [3:0] y;
+
+    decoder_b dut(
+        .en(en),
+        .a(a),
+        .y(y)
+    );
+
+    initial begin
+        $dumpfile("decoder_tb.vcd");
+        $dumpvars(0, tbdec); 
+      
+        en = 0; a = 2'b00; #5;
+        en = 1; a = 2'b00; #5;
+        en = 1; a = 2'b01; #5;
+        en = 1; a = 2'b10; #5;
+        en = 1; a = 2'b11; #5;
+        en = 0; a = 2'b10; #5;
+
+        $finish;
+    end
+
+    
+    initial begin
+        $display("Time(ns) | en a -> y");
+        $monitor("%0dns     |  %b  %b -> %b", $time, en, a, y);
+    end
+endmodule
