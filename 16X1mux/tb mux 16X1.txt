@@ -1,0 +1,27 @@
+
+`timescale 1ns/1ps
+
+module tbmux16to1;
+    reg  [15:0] in;
+    reg  [3:0]  sel;
+    wire        out;
+
+    mux16to1 uut (
+        .in  (in),
+        .sel (sel),
+        .out (out)
+    );
+
+    initial begin
+        $dumpfile("mux16to1.vcd");
+        $dumpvars(0, tbmux16to1);
+       
+        in = 16'b1010_1100_0111_0001;
+        for (integer i = 0; i < 16; i = i + 1) begin
+            sel = i;
+            #10;
+            $display("time=%0t sel=%d in[sel]=%b out=%b", $time, sel, in[sel], out);
+        end
+        $finish;
+    end
+endmodule
