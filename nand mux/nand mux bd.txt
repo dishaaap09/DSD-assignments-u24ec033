@@ -1,0 +1,12 @@
+module nand_using_mux (
+    input  wire A,
+    input  wire B,
+    output reg  Y
+);
+    always @(*) begin
+        if (A == 1'b0)
+            Y = ~B;   
+        else
+            Y = 1'b1;  
+    end
+endmodule
