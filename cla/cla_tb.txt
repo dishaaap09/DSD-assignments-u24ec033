@@ -1,0 +1,37 @@
+// Code your testbench here
+// or browse Examples
+module cla_tb;
+  reg [8:0]A,B;
+  reg Cin;
+  wire [7:0]sum;
+  wire Cout;
+  
+  cla uut(
+    .A(A),.B(B),.Cin(Cin),.sum(sum),.Cout(Cout)
+  );
+  
+  integer i;
+  
+  initial 
+    begin
+      
+      
+      $dumpfile("cla");
+      $dumpvars(0,cla_tb);
+    
+      for(i=2;i<13;i=i+1) 
+      begin
+        
+      
+        A=$random % 256;
+        B=$random % 256;
+        Cin=i%2;
+        
+        #5;
+ 
+      
+      end
+ 
+     $finish;
+    end
+endmodule

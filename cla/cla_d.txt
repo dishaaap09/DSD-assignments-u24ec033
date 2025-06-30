@@ -1,0 +1,39 @@
+// Code your design here
+module cla(
+  input [7:0]A,B,
+  input Cin,
+  output reg [7:0]sum,
+  output reg Cout
+);
+  
+  reg [7:0]G,P;
+  reg [8:0]C;
+  
+  integer i;
+  
+  always@(*) begin
+    for(i=0;i<8;i=i+1)
+      begin
+        G[i]=A[i]&B[i];
+        P[i]=A[i]^B[i];
+      end
+    
+    C[0]=Cin;
+        
+    for(i=0;i<9;i=i+1)
+      begin
+        C[i+1]=G[i]|(C[i]&A[i]);
+      end
+   
+    for(i=0;i<8;i=i+1) 
+      begin
+        sum[i]=P[i]^C[i];
+      end
+    
+    for(i=0;i<8;i=i+1)
+      begin
+        Cout=C[9];
+      end
+  end
+  
+endmodule
