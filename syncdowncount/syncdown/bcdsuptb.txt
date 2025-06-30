@@ -1,0 +1,28 @@
+`timescale 1ns/1ps
+module tb_bcdsup;
+  reg clk = 0, rst;
+  wire [3:0] q;
+
+
+  bcd_sup uut (
+    .clk(clk),
+    .rst(rst),
+    .q(q)
+  );
+
+  
+  always #5 clk = ~clk;
+
+  initial begin
+    rst = 1;
+    #10 rst = 0;    
+  end
+ 
+  initial begin
+    $dumpfile("bcd_counter.vcd");     
+    $dumpvars(0, tb_bcd_dff_sync_up); 
+	
+    #200;                             
+    $finish;
+  end
+endmodule
