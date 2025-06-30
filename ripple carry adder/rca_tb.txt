@@ -1,0 +1,35 @@
+module rca_tb;
+  reg [7:0] a,b;
+  reg cin;
+  
+  wire [7:0]sum;
+  wire cout;
+  
+  
+  rca uut(
+    .a(a),
+    .b(b),
+    .cin(cin),
+    .sum(sum),
+    
+    .cout(cout)
+  );
+  
+  integer i;
+  
+  initial begin
+    $dumpfile("rca.vcd");
+    $dumpvars(0,rca_tb);
+    
+    
+    for(i=2;i<12;i=i+1) begin
+      a=$random;
+      b=$random;
+      cin=i%2;
+      
+      #10;
+    end
+    
+    $finish;
+  end
+endmodule
