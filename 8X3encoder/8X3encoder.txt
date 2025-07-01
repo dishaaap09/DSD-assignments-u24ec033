@@ -1,0 +1,30 @@
+`timescale 1ns / 1ps
+
+module tb_encoder8x3;
+
+  reg [7:0] in;
+  wire [2:0] out;
+
+ 
+  encoder8x3 uut (
+    .in(in),
+    .out(out)
+  );
+
+  integer i;
+
+  initial begin
+    $dumpfile("encoder8x3.vcd");
+    $dumpvars(0, tb_encoder8x3);
+
+    
+    for (i = 7; i >= 0; i = i - 1) begin
+      in = 8'b00000001 << i; // only one bit high
+      #10;
+      $display("Time = %0t | Input = %b | Encoded Output = %b", $time, in, out);
+    end
+
+    $finish;
+  end
+
+endmodule

@@ -1,0 +1,15 @@
+module encoder8x3 (
+  input [7:0] in,
+  output reg [2:0] out
+);
+
+  integer i;
+
+  always @(*) begin
+    out = 3'b000;  // default output
+    for (i = 0; i < 8; i = i + 1) begin
+      if (in[i]) out = i[2:0];
+    end
+  end
+
+endmodule
