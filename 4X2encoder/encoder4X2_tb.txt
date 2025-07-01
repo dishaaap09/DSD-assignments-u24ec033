@@ -1,0 +1,23 @@
+module encoder4X2_tb;
+  reg [3:0]in;
+  wire [1:0]out;
+  
+  encoder4X2 uut(
+    .in(in),
+    .out(out)
+  );
+  
+  integer i;
+  
+  initial
+    begin
+      $dumpfile("encoder4X2.vcd");
+      $dumpvars(0,encoder4X2_tb);
+      
+      in=4'b1000; #10;
+      in=4'b0001; #10;
+      in=4'b0010; #10;
+      in=4'b0100; #10;
+      
+    end
+endmodule
