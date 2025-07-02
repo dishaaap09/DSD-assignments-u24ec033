@@ -1,0 +1,34 @@
+// Code your design here
+module gray8X3(
+  input [7:0]in,
+  output reg[2:0]out,
+  output reg valid,
+  output reg[2:0]gray
+);
+  integer i;
+  
+  always@(*)
+    begin
+      out=3'b000;
+      valid=0;
+       
+      for(i=7;i>=0;i=i-1)
+        begin
+          if(in[i]) begin
+            
+            out=i[2:0];
+            
+            gray[2]=out[2];
+            gray[1]=out[2] ^ out[1];
+            gray[0]=out[1] ^ out[0];
+            
+          	valid=1;
+          	i=-1;
+          end
+        end
+    end
+endmodule
+          
+          
+  
+  

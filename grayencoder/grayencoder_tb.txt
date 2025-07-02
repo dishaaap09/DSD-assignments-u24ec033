@@ -1,0 +1,37 @@
+// Code your testbench here
+// or browse Examples
+module gray8X3_tb;
+  reg [7:0]in;
+  wire valid;
+  wire [2:0]out;
+  wire [2:0]gray;
+  
+  integer k;
+  
+  gray8X3 uut(.in(in),.valid(valid),.out(out));
+  
+  initial 
+    begin
+      $dumpfile("gray8X3.vcd");
+      $dumpvars(0,gray8X3_tb);
+      
+      
+     
+      for(k=0;k<12;k=k+1)
+        begin
+          in=$random % 256; 
+          #10;
+          
+          $display("in=%b,gray=%b,valid=%b",in,out,valid);
+          #10;
+          
+        end
+        $finish;
+      
+    end
+endmodule
+      
+          
+          
+  
+  
