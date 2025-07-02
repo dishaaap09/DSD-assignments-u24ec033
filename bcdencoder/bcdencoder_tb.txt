@@ -1,0 +1,32 @@
+module bcd_encoder_tb;
+  reg [9:0] in;
+  wire [3:0] out;
+  wire valid;
+
+ 
+  bcd_encoder uut (
+    .in(in),
+    .out(out),
+    .valid(valid)
+  );
+
+  integer i;
+
+  initial begin
+    $dumpfile("bcd_encoder.vcd");
+    $dumpvars(0, bcd_encoder_tb);
+
+    
+    for (i = 0; i < 10; i = i + 1) begin
+      in = 10'b0000000001<<i;
+      
+      #10;
+      
+      $display("Input = %b , Output = %b , Valid = %b", in, out, valid);
+      
+    end
+       
+
+    $finish;
+  end
+endmodule
