@@ -1,0 +1,33 @@
+// Code your testbench here
+// or browse Examples
+module priority4X2_tb;
+  reg [3:0]in;
+  wire valid;
+  wire [1:0]out;
+  integer k;
+  
+  priority4X2 uut(.in(in),.valid(valid),.out(out));
+  
+  initial 
+    begin
+      $dumpfile("priority4X2.vcd");
+      $dumpvars(0,priority4X2_tb);
+      
+      
+     
+      for(k=0;k<12;k=k+1)
+        begin
+          in=$random % 16; #10;
+          
+          $display("in=%b,out=%b,valid=%b",in,out,valid);
+          
+        end
+        $finish;
+      
+    end
+endmodule
+      
+          
+          
+  
+  
