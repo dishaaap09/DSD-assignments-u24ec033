@@ -1,0 +1,29 @@
+// Code your testbench here
+// or browse Examples
+module demux1X2_tb;
+  reg in;
+  reg sel;
+  wire [1:0]out;
+  
+  demux1X2 uut(
+    .in(in),
+    .sel(sel),
+    .out(out)
+  );
+ 
+  integer i;
+  initial 
+    begin
+      $dumpfile("demux1X2.vcd");
+      $dumpvars(0,demux1X2_tb);
+      
+      for(i=2;i<12;i=i+1)
+        begin
+          in=i%2;#10;
+          sel=i%2;#10;
+          
+          $display("in=%b,sel=%b,out=%b",in,sel,out);
+        end
+          
+    end
+endmodule
