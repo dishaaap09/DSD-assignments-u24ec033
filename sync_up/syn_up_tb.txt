@@ -1,0 +1,47 @@
+`timescale 1ns / 1ps
+
+
+
+module sync_down_tb;
+reg clk;
+reg reset;
+reg load;
+reg [2:0]load_data;
+wire [2:0]Q;
+
+  
+sync_down uut (.clk(clk),.reset(reset),.Q(Q),.load(load),.load_data(load_data));
+
+ 
+always #5 clk = ~clk;
+
+  
+always @(posedge clk) begin
+$display("Time=%0t | Reset=%b |Load=%b| Counter=%b", $time, reset,load, Q);
+end
+
+initial begin
+    
+$dumpfile("sync_down.vcd");
+$dumpvars(0,sync_down_tb);
+
+    
+clk = 0;
+reset = 1;
+load=0;
+load=3'b000;
+
+#10;
+reset=0;
+
+#10;
+load=1;
+load_data=3'b111;
+
+load=0;
+#100;
+
+$finish;
+end
+
+endmodule
