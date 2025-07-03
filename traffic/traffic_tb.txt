@@ -1,0 +1,24 @@
+`timescale 1ns / 1ps
+
+module traffic_light_tb;
+
+reg clk;
+wire [0:2]light;
+
+traffic_light uut(.clk(clk),.light(light));
+
+initial 
+begin
+$dumpfile("traffic_light.vcd");
+$dumpvars(0,traffic_light_tb);
+end
+
+always #5 clk = ~clk;
+initial 
+begin
+clk=1'b0;
+#100 $finish;
+end
+
+
+endmodule
