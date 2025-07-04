@@ -1,0 +1,30 @@
+`timescale 1ns / 1ps
+
+module encoder_tf_tb;
+
+reg [7:0]in;
+wire [2:0]out;
+
+integer k;
+
+encoder_tf uut(.in(in),.out(out));
+
+initial
+begin
+$dumpfile("encoder_tf.vcd");
+$dumpvars(0,encoder_tf_tb);
+
+for(k=0;k<=7;k=k+1)
+begin
+in=8'b00000001<<k;
+#10;
+$display("In=%b,Out=%b",in,out);
+end
+$finish;
+
+end
+
+
+
+
+endmodule
