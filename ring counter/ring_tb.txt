@@ -1,0 +1,47 @@
+`timescale 1ns / 1ps
+
+module ring_tb;
+
+  
+reg clk;
+reg ori;
+wire [3:0] Q;
+
+  
+ring uut (.clk(clk),.ori(ori),.Q(Q));
+
+always #5 clk=~clk;
+
+always@(posedge clk or posedge ori)
+begin
+$display("ORI=%b,COUNT=%b",ori,Q);
+#10;
+end
+
+
+
+  
+initial begin
+$dumpfile("ring.vcd");
+$dumpvars(0, ring_tb);
+
+clk=1;
+ori=0;
+#10;
+
+ori =1;
+#10;
+
+ori=0;
+#200;
+
+$finish;
+end
+
+ 
+
+
+  
+ 
+ 
+endmodule
