@@ -1,0 +1,31 @@
+`timescale 1ns / 1ps
+
+module mux_tf_tb;
+reg [15:0]in;
+reg [3:0]sel;
+wire out;
+
+integer i;
+
+mux_tf uut(.in(in),.out(out),.sel(sel));
+
+initial
+begin
+$dumpfile("mux_tf.vcd");
+$dumpvars(0,mux_tf_tb);
+
+for(i=0;i<20;i=i+1)
+begin
+in=$random%65536;
+#10;
+sel=$random%16;
+#10;
+$display("INPUT=%b,SELECT=%b,OUT=%b",in,sel,out);
+#10;
+end
+
+
+end
+
+
+endmodule

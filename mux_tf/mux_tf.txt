@@ -1,0 +1,45 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 05.07.2025 21:09:18
+// Design Name: 
+// Module Name: mux_tf
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module mux_tf(
+input [15:0]in,
+input [3:0]sel,
+output reg out);
+
+function mux;
+input [15:0]val;
+input [3:0]sel;
+
+integer i;
+for(i=0;i<16;i=i+1)
+begin
+mux=in[sel];
+end
+endfunction
+
+
+always@(*)
+begin
+out=mux(in,sel);
+end
+ 
+endmodule
