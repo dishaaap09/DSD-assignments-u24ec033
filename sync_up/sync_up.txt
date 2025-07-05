@@ -1,0 +1,64 @@
+
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 03.07.2025 15:29:18
+// Design Name: 
+// Module Name: counter_sync
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+module dff(
+input D,clk,reset,
+output reg Q);
+
+always@(posedge clk or posedge reset)
+begin
+if(reset)
+Q<=0;
+else
+Q<=D;
+end
+endmodule
+
+
+
+
+
+module counter_sync(
+input clk,reset,
+output wire[2:0]Q
+);
+
+wire d0,d1,d2;
+wire q0,q1,q2;
+
+assign Q[0]=q0;
+assign Q[1]=q1;
+assign Q[2]=q2;
+
+assign d0=~q0;
+assign d1=q1^q0;
+assign d2=q2^(q1&q0);
+
+dff ff0(.D(d0),.clk(clk),.reset(reset),.Q(q0));
+dff ff1(.D(d1),.clk(clk),.reset(reset),.Q(q1));
+dff ff2(.D(d2),.clk(clk),.reset(reset),.Q(q2));
+endmodule
+
+
+
+
+
+
+
