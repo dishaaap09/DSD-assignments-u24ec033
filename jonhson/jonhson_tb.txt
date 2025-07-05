@@ -1,0 +1,42 @@
+`timescale 1ns / 1ps
+
+module dff(
+input D,clk,clr,
+output reg Q);
+
+always@(posedge clk or posedge clr)
+begin
+
+
+if(clr)
+Q<=1'b0;
+else
+Q<=D;
+
+end
+endmodule
+
+
+module ring(
+input clk,ori,
+output wire[3:0]Q
+);
+
+wire d0,d1,d2,d3;
+wire q0,q1,q2,q3;
+
+assign Q={q3,q2,q1,q0};
+
+assign d0=(~q3);
+assign d1=q0;
+assign d2=q1;
+assign d3=q2;
+
+
+dff ff0(.D(d0),.clk(clk),.clr(ori),.Q(q0));
+dff ff1(.D(d1),.clk(clk),.clr(ori),.Q(q1));
+dff ff2(.D(d2),.clk(clk),.clr(ori),.Q(q2));
+dff ff3(.D(d3),.clk(clk),.clr(ori),.Q(q3));
+
+
+endmodule
