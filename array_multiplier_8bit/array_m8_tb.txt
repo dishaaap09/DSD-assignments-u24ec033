@@ -1,0 +1,30 @@
+
+
+module array_tb;
+reg [7:0]M,Q;
+wire [15:0]out;
+
+integer i;
+
+array uut(.M(M),.Q(Q),.out(out));
+
+initial
+begin
+
+$dumpfile("array.vcd");
+$dumpvars(0,array_tb);
+
+for(i=0;i<5;i=i+1)
+begin
+M=$random%256;
+Q=$random%256;
+#10;
+$display("M=%b(%0d),Q=%b(%0d),OUT=%b(%0d)",M,M,Q,Q,out,out);
+#10;
+
+end
+$finish;
+end
+
+
+endmodule
