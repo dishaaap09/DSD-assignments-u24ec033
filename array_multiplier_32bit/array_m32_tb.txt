@@ -1,0 +1,32 @@
+`timescale 1ns / 1ps
+
+
+
+module arr_tb;
+reg [31:0]M,Q;
+wire [31:0]out;
+
+integer i;
+
+arr uut(.M(M),.Q(Q),.out(out));
+
+initial
+begin
+
+$dumpfile("arr.vcd");
+$dumpvars(0,arr_tb);
+
+for(i=0;i<5;i=i+1)
+begin
+M=$random%65536;
+Q=$random%65536;
+#10;
+$display("M=%b(%0d),Q=%b(%0d),OUT=%b(%0d)",M,M,Q,Q,out,out);
+#10;
+
+end
+$finish;
+end
+
+
+endmodule
