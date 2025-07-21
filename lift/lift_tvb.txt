@@ -1,0 +1,35 @@
+`timescale 1ns / 1ps
+
+
+module lift_tb;
+reg clk,call;
+reg [2:0]next_floor,current_floor;
+wire [1:0]motion;
+
+
+integer i;
+
+lift uut(.clk(clk),.call(call),.next_floor(next_floor),.current_floor(current_floor),.motion(motion));
+
+always #5 clk=~clk;
+
+always@(posedge clk)
+begin
+for(i=0;i<5;i=i+1)
+begin
+next_floor=$random % 4;
+current_floor=$random %4;
+#20;
+
+end
+$finish;
+end
+
+initial
+begin
+$dumpfile("lift.vcd");
+$dumpvars(0,lift_tb);
+end
+
+
+endmodule

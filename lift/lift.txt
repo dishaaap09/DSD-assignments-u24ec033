@@ -1,0 +1,97 @@
+
+
+module lift(
+input clk,call,  //if call is 1 means calling lift on a floor
+input [2:0]next_floor,
+output reg [2:0]current_floor,
+output reg[1:0]motion
+);
+
+parameter S0=3'b000,S1=3'b001,S2=3'b010,S3=3'b011;
+
+parameter up=2'b00,down=2'b01,ideal=2'b10;
+
+always@(posedge clk)
+begin
+
+if(call)
+
+case(current_floor)
+
+S0:begin
+if(next_floor==S1) begin
+motion<=up; current_floor<=S1; end
+
+else if(next_floor==S2) begin
+motion<=up; current_floor<=S2; end
+
+else if(next_floor==S3) begin
+motion<=up; current_floor<=S3; end
+
+else begin
+motion<=ideal; current_floor<=S1; end
+end
+
+
+S1:begin 
+if(next_floor==S0) begin
+motion<=down; current_floor<=S0; end
+
+else if(next_floor==S2) begin
+motion<=up; current_floor<=S2; end
+
+else if(next_floor==S3) begin
+motion<=up; current_floor<=S3; end
+
+else begin
+motion<=ideal; current_floor<=S1; end
+end
+
+S2:begin
+if(next_floor==S0) begin
+motion<=down; current_floor<=S0; end
+
+else if(next_floor==S1) begin
+motion<=down; current_floor<=S1;end
+
+else if(next_floor==S3) begin
+motion<=up; current_floor<=S3; end
+
+else begin
+motion<=ideal; current_floor<=S2; end
+end
+
+
+
+S3:begin 
+if(next_floor==S0) begin
+motion<=down; current_floor<=S3;end
+
+else if(next_floor==S1)begin
+motion<=down; current_floor<=S1;end
+
+else if(next_floor==S2) begin
+motion<=down; current_floor<=S2; end
+
+else begin
+motion<=ideal; current_floor<=S3; end
+end
+
+default:begin
+motion<=ideal;
+current_floor<=S0;
+end
+
+endcase
+
+
+
+else
+motion<=ideal;
+
+
+
+end
+
+
+endmodule
