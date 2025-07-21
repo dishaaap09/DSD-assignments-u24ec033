@@ -1,0 +1,32 @@
+`timescale 1ns / 1ps
+
+module dff(
+input clk,D,reset,
+output reg Q
+);
+
+always@(posedge clk or posedge reset)
+begin
+if(reset)
+Q<=0;
+else
+Q<=D;
+
+end
+endmodule
+ 
+module sipo(
+input clk,reset,
+input D,
+output wire Q0,Q1,Q2,Q3
+);
+
+dff ff3(.clk(clk),.D(D),.reset(reset),.Q(Q3));
+dff ff2(.clk(clk),.D(Q3),.reset(reset),.Q(Q2));
+dff ff1(.clk(clk),.D(Q2),.reset(reset),.Q(Q1));
+dff ff0(.clk(clk),.D(Q1),.reset(reset),.Q(Q0));
+
+
+
+
+endmodule
