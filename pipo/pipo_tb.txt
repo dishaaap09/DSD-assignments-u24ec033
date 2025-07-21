@@ -1,0 +1,72 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 07.07.2025 15:06:15
+// Design Name: 
+// Module Name: pipo_tb
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module pipo_tb;
+
+reg clk,reset,load;
+reg [3:0]load_data,D;
+wire Q0,Q1,Q2,Q3;
+
+pipo uut(.clk(clk),.reset(reset),.load(load),.load_data(load_data),.D(D),.Q0(Q0),.Q1(Q1),.Q2(Q2),.Q3(Q3));
+
+always #5 clk=~clk;
+
+always@(posedge clk)
+begin
+$display("Load=%b,Load Data=%b,reset=%b,Q0=%b,Q1=%b,Q2=%b,Q3=%b",load,load_data,reset,Q0,Q1,Q2,Q3);
+end
+
+initial
+begin
+$dumpfile("pipo.vcd");
+$dumpvars(0,pipo_tb);
+
+clk=0;
+reset=1;
+load=0;
+
+
+#10;
+reset=0;
+load=0;
+#10;
+
+
+load=1;
+load_data=$random % 16;
+#10;
+load_data=$random % 16;
+#10;
+load_data=$random % 16;
+#10;
+load_data=$random % 16;
+#10;
+load_data=$random % 16;
+#10;
+load=0;
+
+
+#10
+
+$finish;
+end
+endmodule
