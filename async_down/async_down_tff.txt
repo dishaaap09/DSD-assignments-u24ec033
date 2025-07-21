@@ -1,0 +1,31 @@
+module tff(
+input clk,T,reset,load,load_data,
+output reg Q);
+
+always@(posedge clk or posedge reset)
+begin
+if(reset)
+Q<=0;
+else if(load)
+Q<=load_data;
+else
+Q<=~Q;
+
+end
+endmodule
+
+
+module async_down(
+input clk,reset,load,
+input [2:0]load_data,
+output wire [2:0] Q);
+
+tff ff0(.clk(clk),.T(1),.reset(reset),.load(load),.load_data(load_data[0]),.Q(Q[0]));
+tff ff1(.clk(Q[0]),.T(1),.reset(reset),.load(load),.load_data(load_data[1]),.Q(Q[1]));
+tff ff2(.clk(Q[1]),.T(1),.reset(reset),.load(load),.load_data(load_data[2]),.Q(Q[2]));
+
+endmodule
+
+
+
+
