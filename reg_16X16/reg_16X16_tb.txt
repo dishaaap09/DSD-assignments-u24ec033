@@ -1,0 +1,76 @@
+`timescale 1ns / 1ps
+
+module reg_16x16_tb;
+
+    // Testbench signals
+    reg clk;
+    reg we;
+    reg [3:0] w_add;
+    reg [15:0] w_data;
+    reg [3:0] r1_add;
+    reg [3:0] r2_add;
+    wire [15:0] r1_data;
+    wire [15:0] r2_data;
+
+    
+    reg_16x16 uut (
+        .clk(clk),
+        .we(we),
+        .w_add(w_add),
+        .w_data(w_data),
+        .r1_add(r1_add),
+        .r2_add(r2_add),
+        .r1_data(r1_data),
+        .r2_data(r2_data)
+    );
+
+   
+    initial clk = 0;
+    always #5 clk = ~clk;
+
+    
+    initial begin
+        $dumpfile("reg_16x16_tb.vcd"); 
+        $dumpvars(0, reg_16x16_tb);   
+    end
+
+    
+    initial begin
+        
+        we = 0; w_add = 0; w_data = 0; r1_add = 0; r2_add = 0;
+
+       
+        #10;
+
+       
+        we = 1; w_add = 4'd0; w_data = 16'hAAAA;
+        #10;
+        we = 0;
+
+        
+        we = 1; w_add = 4'd1; w_data = 16'h5555;
+        #10;
+        we = 0;
+
+        
+        r1_add = 4'd0;
+        r2_add = 4'd1;
+        #10;
+        $display("R1 = %h, R2 = %h", r1_data, r2_data); 
+
+       
+        we = 1; w_add = 4'd2; w_data = 16'hF0F0;
+        #10;
+        we = 0;
+
+       
+        r1_add = 4'd1;
+        r2_add = 4'd2;
+        #10;
+        $display("R1 = %h, R2 = %h", r1_data, r2_data);
+
+        #10;
+        $finish;
+    end
+
+endmodule

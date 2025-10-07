@@ -1,0 +1,28 @@
+`timescale 1ns / 1ps
+
+module reg_16x16(
+    input clk,         
+    input we,          
+    input [3:0] w_add, 
+    input [15:0] w_data, 
+    input [3:0] r1_add,  
+    input [3:0] r2_add,  
+    output reg [15:0] r1_data, 
+    output reg [15:0] r2_data );
+
+    
+    reg [15:0] mem [15:0];
+
+   
+    always @(posedge clk) begin
+        if (we)
+            mem[w_add] <= w_data;
+    end
+
+    
+    always @(*) begin
+        r1_data = mem[r1_add];
+        r2_data = mem[r2_add];
+    end
+
+endmodule
